@@ -6,6 +6,8 @@ class CreateMonsters < ActiveRecord::Migration
     t.string :weakness
     t.integer :cr
     t.integer :user_id
+    
+    t.timestamps null: false
     end
   end
 end

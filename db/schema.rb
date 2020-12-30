@@ -14,17 +14,21 @@
 ActiveRecord::Schema.define(version: 20201227154354) do
 
   create_table "monsters", force: :cascade do |t|
-    t.string  "name"
-    t.string  "type"
-    t.string  "weakness"
-    t.integer "cr"
-    t.integer "user_id"
+    t.string   "name"
+    t.string   "monster_type"
+    t.string   "weakness"
+    t.integer  "cr"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "character_name"
-    t.string "password_digest"
-    t.string "email"
+    t.string   "character_name"
+    t.string   "password_digest"
+    t.string   "email"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

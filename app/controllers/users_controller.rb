@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     
     get '/login' do
-        erb :'/login'
+        erb :'users/login'
     end
 
 
@@ -12,9 +12,8 @@ class UsersController < ApplicationController
 
     post '/login' do
         @user = User.find_by(character_name: params[:character_name])
-        if @user.authenticate(params[:password])
+        if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id
-            puts session
             redirect "users/#{@user.id}"
         else
             redirect "/login"
@@ -28,17 +27,33 @@ class UsersController < ApplicationController
 
     end
 
-    post '/users' do
-        if params[:character_name] != "" && params[:email] != "" && params[:password] != ""
-            @user = User.create(params)
-            session[:user_id] = @user.id
-
-            redirect "/users/#{@user.id}"
-        
-        else
-            redirect '/signup'
-        end
+    get '/users/:id/edit' do
+        @user = User.find(params[:id])
+        erb :"/users/edit"
     end
+
+    get '/users/:id' do
+        @user = User.find_by(id: params[:id])
+            if @user
+                erb :'/users/show'
+            else
+                redirect '/users/login'
+            end
+    end
+
+
+
+    # post '/users' do
+    #     if params[:character_name] != "" && params[:email] != "" && params[:password] != ""
+    #         @user = User.create(params)
+    #         session[:user_id] = @user.id
+
+    #         redirect "/users/#{@user.id}"
+        
+    #     else
+    #         redirect '/signup'
+    #     end
+    # end
 
 
 

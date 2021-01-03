@@ -1,1 +1,25 @@
-#back update and delete
+<% if logged_in? %>
+<% if @monster.user_id == current_user.id %>
+<form class="" action="/monsters/<%=@monster.id%>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label for="name">Monster:</label>
+    <input type="text" name="monster[name]" value="<%=@monster.name%>">
+    <br>
+    <label for="">Monster Type:</label>
+    <input type="text" name="monster[monster_type]" value="<%=@monster.monster_type%>">
+    <br>
+    <label for="weakness">Damage Weaknesses:</label>
+    <input type="text" name="monster[weakness]" value="<%=@monster.weakness%>">
+    <br>
+    <label for="cr">Challenge Rating:</label>
+    <input type="integer" name="monster[cr]" value="<%=@monster.cr%>">
+    <br>
+    <input type="submit" value="Submit Updated Monster">
+</form>
+
+<% else %>
+<% redirect to '/monsters'%>
+<%end%>
+<% else %>
+<% redirect to '/login'%>
+<%end%>

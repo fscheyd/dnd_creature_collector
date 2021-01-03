@@ -4,23 +4,44 @@ class MonstersController < ApplicationController
         erb :'/monsters/new'
     end
 
-    # get '/monsters' do
-    #     authenticate
-    #     @user = current_user
-    #     @monsters = monster.all
-    #     erb :"monsters/show"
-    # end
-
-    post '/monsters' do
-        if !logged_in?
-            redirect '/'
-        end
-
-        if params[:name, :monster_type] != ""
-            @monster = monster.create(name: params[:name], monster_type: params[:monster_type], user_id: current_user.id)
-            redirect "/monsters/#{@monster.id}"
-        else
-            redirect '/monsters/new'
-
+    get '/monsters' do
+        @monsters = Monster.all
+        erb :'/monsters/index'
     end
+    
+
+    post '/monsters/new' do
+        monster = Monster.new(params[:monster])
+        if monster.save
+            redirect "/monsters/#{monster.id}"
+        else
+            @errors = "[" + monster.errors.full_messages.join(", ") + "]"
+            erb :"/monsters/new"
+        end
+    end
+    
+
+    get '/monsters/:id' do
+        @monster = Monster.find(params[:id])
+        erb :'/monsters/show'
+    end
+
+    get '/monsters/:id/edit' do
+        @monster = Monster.find_by(id: params[:id])
+        erb :'/monsters/edit'
+    end
+
+    patch '/monsters/:id' do
+        @monster = Monster.find(params[:id])
+        @monster.update(params[:monster])
+        redirect :"/monsters/#{@monster.id}"
+    end
+
+    delete '/monsters/:id' do
+        monster = Monster.find(params[:id])
+        monster.delete
+        redirect to "/monsters"
+        
+    end
+
 end

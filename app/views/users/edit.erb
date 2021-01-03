@@ -1,1 +1,10 @@
+<% if logged_in? %>
+<% if @user.id == current_user.id %>
 Hello there!
+
+<% else %>
+<% redirect to "/users/#{current_user.id}"%>
+<%end%>
+<% else %>
+<% redirect to '/login'%>
+<%end%>

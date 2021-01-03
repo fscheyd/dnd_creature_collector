@@ -1,5 +1,16 @@
-
-<h2><%= @user.character_name %>'s Creature Collection: </h2>
+<% if logged_in? %>
+<% if @user.id == current_user.id %>
+<h2><u><%= @user.character_name %>'s Creature Collection: </u></h2>
 &nbsp;
 <h3>Email: </h3>
 <h4><%= @user.email %></h4>
+<br>
+<h2>Monsters:<% @user.monsters.each do |monster|%></h2>
+    <a href="../monsters/<%= monster.id %>"><%= monster.name%></a><br>
+<%end%>
+<% else %>
+<% redirect to "/users/#{current_user.id}"%>
+<%end%>
+<% else %>
+<% redirect to '/login'%>
+<%end%>

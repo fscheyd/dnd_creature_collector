@@ -1,1 +1,11 @@
-#edit
+<% if logged_in? %>
+<h1>The Creatures <%= current_user.character_name %> has seen:</h1>
+
+<% @monsters.each do |monster| %>
+    <% if monster.user_id == current_user.id %>
+        <a href="/monsters/<%= monster.id %>"><%= monster.name%></a><br> 
+    <%end%>
+<% end %>
+<% else %>
+<% redirect to '/login'%>
+<%end%>

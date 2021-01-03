@@ -1,17 +1,24 @@
+<% if logged_in? %>
 <h2>Submit a new Monster:</h2>
 
-<form class="" action="/monsters" method="post">
+<h5 style="color:red"><%= @errors %></h5>
+
+<form class="" action="/monsters/new" method="post">
     <label for="name">Monster:</label>
-    <input type="text" name="name" value="">
+    <input type="text" name="monster[name]" value="">
     <br>
     <label for="">Monster Type:</label>
-    <input type="text" name="monster_type" value="">
+    <input type="text" name="monster[monster_type]" value="">
     <br>
     <label for="weakness">Damage Weaknesses:</label>
-    <input type="text" name="weakness" value="">
+    <input type="text" name="monster[weakness]" value="">
     <br>
     <label for="cr">Challenge Rating:</label>
-    <input type="integer" name="cr" value="">
+    <input type="integer" name="monster[cr]" value="">
     <br>
-    <input type="submit" name="" value="Submit Monster!">
+    <input type="hidden" name="monster[user_id]" value="<%= current_user.id%>">
+    <input type="submit" value="Submit Monster">
 </form>
+<% else %>
+<% redirect to '/login'%>
+<%end%>

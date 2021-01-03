@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
     
-
-
-    #renders login page
     get '/login' do
-        erb :login
+        erb :'/login'
+    end
+
+
+    get '/users' do
+        @user = User.find_by(id: params[:id])
+        erb :'/show'
     end
 
     post '/login' do
@@ -14,9 +17,10 @@ class UsersController < ApplicationController
             puts session
             redirect "users/#{@user.id}"
         else
-        
+            redirect "/login"
         end
     end
+
 
 
     get '/signup' do
@@ -26,16 +30,20 @@ class UsersController < ApplicationController
 
     post '/users' do
         if params[:character_name] != "" && params[:email] != "" && params[:password] != ""
-            @user = User.new(params)
+            @user = User.create(params)
+            session[:user_id] = @user.id
+
             redirect "/users/#{@user.id}"
         
         else
-            puts "Character is lost in the woods"
+            redirect '/signup'
         end
     end
 
-    get '/users/:id' do
-        @user = User.find_by(id: params[:id])
-        erb :'/users/show'
+
+
+    get '/logout' do
+        session.clear
+        redirect '/login'
     end
 end

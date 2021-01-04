@@ -1,13 +1,15 @@
 <h2> Sign up!</h2>
+<br>
+<h5 style="color:red"><%= @errors %></h5>
 
 <form class="" action="/users" method="post">
     <label for="character_name">Character Name:</label>
-    <input type="text" name="character_name" value="">
+    <input type="text" name="user[character_name]" value="">
     <label for="email">Email:</label>
-    <input type="text" name="email" value="">
+    <input type="text" name="user[email]" value="">
     <label for="password">Password:</label>
-    <input type="text" name="password" value="">
-    <input type="submit" name="" value="Submit Character!">
+    <input type="password" name="user[password]" value="">
+    <input type="submit" value="Submit Character!">
 
 
 </form>

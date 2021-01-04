@@ -16,11 +16,16 @@
   <body>
     <div class="nav">
     <a href="/signup">Sign Up</a>  
-    <a href="/logout">Log Out</a>
-    <a href="/monsters/new">Enter a New Monster</a>
      
     </div>
     <div class="wrapper">
+      <% if logged_in? %>
+        <div align="right">  
+        <a href="/users">Character Profile</a> 
+          <a href="/logout">Log Out</a>
+          <a href="/monsters/new">Enter a New Monster</a>
+        </div>
+      <% end %>
 
         <%= yield %>
 

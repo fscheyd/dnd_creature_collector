@@ -6,17 +6,19 @@ class UsersController < ApplicationController
 
 
     get '/users' do
-        @user = User.find_by(id: params[:id])
-        erb :'/show'
+        redirect to :"/users/#{current_user.id}"
     end
 
     post '/login' do
-        @user = User.find_by(character_name: params[:character_name])
-        if @user && @user.authenticate(params[:password])
-            session[:user_id] = @user.id
-            redirect "users/#{@user.id}"
+        # binding.pry
+        user = User.find_by(character_name: params[:character_name])
+        if user && user.authenticate(params[:password])
+            session[:user_id] = user.id
+            redirect to "/monsters"
         else
-            redirect "/login"
+            @errors = "Sorry the input was invalid."
+            erb :"/users/login"
+
         end
     end
 
@@ -43,17 +45,16 @@ class UsersController < ApplicationController
 
 
 
-    # post '/users' do
-    #     if params[:character_name] != "" && params[:email] != "" && params[:password] != ""
-    #         @user = User.create(params)
-    #         session[:user_id] = @user.id
-
-    #         redirect "/users/#{@user.id}"
-        
-    #     else
-    #         redirect '/signup'
-    #     end
-    # end
+    post '/users' do
+       user = User.new(params[:user])
+        if user.save
+            session[:user_id] = user.id
+            redirect "/monsters"       
+        else
+            @errors = " [ " + user.errors.full_messages.join(", ") + " ] "
+            erb :'/signup'
+        end
+    end
 
 
 

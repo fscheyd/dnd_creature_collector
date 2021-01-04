@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
     has_secure_password
     
     validates :character_name, presence: true
+    validates :character_name, uniqueness: true
     validates :email, presence: true
-    validates :email, uniqueness: true
 
 end

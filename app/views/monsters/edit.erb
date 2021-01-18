@@ -1,5 +1,5 @@
-<% if logged_in? %>
-<% if @monster.user_id == current_user.id %>
+
+
 <form class="" action="/monsters/<%=@monster.id%>" method="post">
     <input type="hidden" name="_method" value="patch">
     <label for="name">Monster:</label>
@@ -16,10 +16,3 @@
     <br>
     <input type="submit" value="Submit Updated Monster">
 </form>
-
-<% else %>
-<% redirect to '/monsters'%>
-<%end%>
-<% else %>
-<% redirect to '/login'%>
-<%end%>

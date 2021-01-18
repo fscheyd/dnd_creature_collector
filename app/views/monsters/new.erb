@@ -1,4 +1,4 @@
-<% if logged_in? %>
+
 <h2>Submit a new Monster:</h2>
 
 <h5 style="color:red"><%= @errors %></h5>
@@ -19,6 +19,3 @@
     <input type="hidden" name="monster[user_id]" value="<%= current_user.id%>">
     <input type="submit" value="Submit Monster">
 </form>
-<% else %>
-<% redirect to '/login'%>
-<%end%>
